@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  fb-api-service:
+    image: fb-api-img:v2
+    build:
+      context:  ../../
+      dockerfile: ./deployments/docker/Dockerfile
+      target: NODE_BUILD
+    restart: on-failure
+    container_name: test-container
+    env_file:
+      - ../../config/development/.env
+    ports:
+      - "3002:3002"
+
+
+networks:
+  default:
+    external:
+      name: fb-network
+

@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fb-api-router
+  labels:
+    app: fb-api-label
+spec:
+  rules:
+    - host: test-vijay.com
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: fb-api-service
+              servicePort: 443

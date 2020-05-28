@@ -1,0 +1,9 @@
+{
+    "cloudcode.isDeployDeprecationMessageShown": true,
+    "cloudcode.last-used-context": {
+        "Run on Kubernetes": {
+            "kubeConfigPath": "/home/vijayakumar_psg587/.kube/config",
+            "contextName": "minikube"
+        }
+    }
+}

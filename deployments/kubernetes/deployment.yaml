@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fb-api-deployment
+spec:
+  selector:
+    matchLabels:
+      app: fb-api
+  template:
+    metadata:
+      labels:
+        app: fb-api
+    spec:
+      containers:
+      - name: fb-api
+        image: vijayakumarpsg587/fb-api-img:v2
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+            - name: httpsport
+              containerPort: 3002
+              protocol: TCP
+        

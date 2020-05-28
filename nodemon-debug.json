@@ -1,0 +1,12 @@
+{
+  "watch":["src"],
+  "exec":"node --inspect --experimental-modules -r dotenv/config -r tsconfig-paths/register src/main.ts dotenv_config_path=./config/development/.env",
+  "ext": "ts, tsx, js, jsx, jade",
+  "verbose":false,
+  "restartable":"rs",
+  "ignore":["src/**/*.spec.ts, src/test/*.ts. ./node_modules/**/node_modules"],
+  "env": {
+    "NODE_ENV_NODEMON":"development",
+    "NODE_ENV":"dev"
+  }
+}
