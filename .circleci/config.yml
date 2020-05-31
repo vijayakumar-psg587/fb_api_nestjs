@@ -26,6 +26,8 @@ jobs:
   run_app:
     description: Run the built image
     working_directory: ~/${PROJECT_ID}
+    docker:
+      - image: node:13-alpine3.10
     steps:
       - run:
           name: Executing the run commands
