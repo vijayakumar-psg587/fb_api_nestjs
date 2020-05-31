@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "rimraf": "./node_modules/rimraf/bin.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "build:webpack:dev": "rimraf dist && webpack --config  webpack.dev.config.js",
     "start": "nest start",
@@ -23,7 +24,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@feedback/database-connector": "^2.3.0",
     "@hapi/boom": "^9.0.0",
     "@hapi/joi": "^17.1.0",
     "@nest-middlewares/serve-favicon": "^6.0.1",

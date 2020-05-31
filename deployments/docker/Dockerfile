@@ -1,28 +1,29 @@
-FROM node:13.13-alpine3.11 AS NODE_BUILD
-RUN apk update && apk add --update git openssh
-RUN npm i -g pm2
+FROM node:13-alpine3.10 AS build_img
+RUN mkdir -p /app/node/fb-api  
+RUN addgroup -S appgroup && adduser --disabled-password -S -G appgroup appuser
+RUN npm install -g pm2 rimraf
+RUN chmod -R a=rwx /app/node/fb-api
+COPY package.json /app/node/fb-api
+WORKDIR /app/node/fb-api
 
-RUN mkdir -p /home/node/fb-api
-# Create a seperate node user
-RUN addgroup -S app && adduser --disabled-password -S -G app app
-RUN chown -R app /home/node/fb-api
-COPY package.json /home/node/fb-api/
-WORKDIR /home/node/fb-api
-RUN npm i
 COPY . ./
-RUN ls -lt
-#Create a ditectory called logs for wiring log files
-RUN mkdir ./logs
-RUN chown -R app:app ./logs/
-RUN chown -R app:app ./cert-keys/
-RUN ls -lt ./cert-keys/
-RUN  npm cache clean -f && npm i
-USER app
-RUN ls -lt
+RUN mkdir ./logs/
+
+RUN mkdir -p /app/node/fb-api/ecosystem-pm2/
+RUN cp ecosystem.config.js /app/node/fb-api/ecosystem-pm2/ecosystem.config.js
+RUN chown -R appuser:appgroup ./
+USER appuser
+RUN npm cache clean -f && npm install
 RUN npm run build:webpack:dev
 RUN ls -lt
+
+FROM build_img as NODE_APP
+WORKDIR /app/node/fb-api
+RUN cat /app/node/fb-api/ecosystem-pm2/ecosystem.config.js
+RUN whoami
+USER appuser
 EXPOSE 3002
-CMD ["pm2-runtime", "ecosystem.config.js"]
-#CMD ["pm2", "ecosystem.config.js"]
+CMD ["pm2-runtime","--json", "ecosystem.config.js"]
+# Include nginx conf to run your instances - but the best practise is to make use of kubernetes ingress
 
 

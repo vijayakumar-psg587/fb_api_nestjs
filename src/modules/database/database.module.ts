@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { retryConnection } from '@feedback/database-connector/dist';
 import * as mongoose from 'mongoose';
 import { CustomErrorModel } from '../common/models/custom.error.model';
 import { MongoDatabaseConfigService } from './services/database-config/mongo-database-config.service';
