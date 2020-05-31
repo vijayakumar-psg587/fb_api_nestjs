@@ -20,7 +20,7 @@ jobs:
           name: Build docker image
           command: |
             TAG:v.$CIRCLE_SHA1
-            docker build -t $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG .
+            docker build -t $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG -f ./deployments/docker/Dockerfile .
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
             docker push $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG
   run_app:
