@@ -1,15 +1,13 @@
 version: 2
 executors:
-  docker_executor:
-    docker:
-      - image: circleci/node:13.12
   machine_executor:
     machine: true
 jobs:
   build_app:
     description: Building image with custom docker
     working_directory: ~/${PROJECT_ID}
-    executor: docker_executor
+    docker:
+      - image: circleci/node:13.12
     steps:
       - checkout
 #      - setup_remote_docker:
@@ -28,7 +26,8 @@ jobs:
   run_app:
     description: Run the built image
     working_directory: ~/${PROJECT_ID}
-    executor: docker_executor
+    docker:
+      - image: circleci/node:13.12
     steps:
       - run:
           name: Executing the run commands
