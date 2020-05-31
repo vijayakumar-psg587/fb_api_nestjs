@@ -23,6 +23,7 @@ jobs:
             docker push $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG
   run_app:
     description: Run the built image
+    executor: machine-executor
     run:
       name: Executing the run commands
       command: |
@@ -32,7 +33,8 @@ workflows:
   jobs:
     - build_app:
     - run_app:
-        requires: build_app
+        requires:
+          - build_app
 
 
 
