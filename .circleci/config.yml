@@ -1,12 +1,9 @@
 version: 2.1
 executors:
-  docker_node_executor:
-    docker:
-      image: node:13-alpine3.10
   machine_executor:
     machine: true
 jobs:
-  build-app:
+  build_app:
     description: Building image with custom docker
     executor: machine_executor
     steps:
@@ -24,16 +21,18 @@ jobs:
             docker build -t $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG .
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
             docker push $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG
-  run-app:
+  run_app:
     description: Run the built image
     run:
       name: Executing the run commands
       command: |
         docker run -d --name ${PROJECT_ID}-container -p 3002:3002 ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:$TAG
 workflows:
-  build-app:
-  run-app:
-    requires: build-app
+  fb-api-docker-workflow:
+  jobs:
+    - build_app:
+    - run_app:
+        requires: build_app
 
 
 
