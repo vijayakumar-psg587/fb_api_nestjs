@@ -27,10 +27,10 @@ jobs:
     description: Run the built image
     working_directory: ~/${PROJECT_ID}
     steps:
-      run:
-        name: Executing the run commands
-        command: |
-          docker run -d --name ${PROJECT_ID}-container -p 3002:3002 ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:$TAG
+      - run:
+          name: Executing the run commands
+          command: |
+            docker run -d --name ${PROJECT_ID}-container -p 3002:3002 ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:$TAG
 workflows:
   version: 2
   fb-api-docker-workflow:
