@@ -1,19 +1,20 @@
-version: 2.1
+version: 2
 executors:
   machine_executor:
     machine: true
 jobs:
   build_app:
     description: Building image with custom docker
+    working_directory: ~/${PROJECT_ID}
     executor: machine_executor
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - run:
-          name: Test the source
-          command: |
-            echo "test"
+#      - run:
+#          name: Test the source
+#          command: |
+#            echo "test"
       - run:
           name: Build docker image
           command: |
@@ -23,18 +24,20 @@ jobs:
             docker push $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG
   run_app:
     description: Run the built image
+    working_directory: ~/${PROJECT_ID}
     executor: machine-executor
     run:
       name: Executing the run commands
       command: |
         docker run -d --name ${PROJECT_ID}-container -p 3002:3002 ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:$TAG
 workflows:
+  version: 2
   fb-api-docker-workflow:
-  jobs:
-    - build_app:
-    - run_app:
-        requires:
-          - build_app
+    jobs:
+      - build_app
+      - run_app:
+          requires:
+            - build_app
 
 
 
