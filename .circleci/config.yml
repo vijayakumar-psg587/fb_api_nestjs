@@ -6,7 +6,8 @@ jobs:
   build_app:
     description: Building image with custom docker
     working_directory: ~/${PROJECT_ID}
-    executor: machine_executor
+    docker:
+      - image: node:13-alpine3.10
     steps:
       - checkout
 #      - setup_remote_docker:
@@ -25,7 +26,6 @@ jobs:
   run_app:
     description: Run the built image
     working_directory: ~/${PROJECT_ID}
-    executor: machine-executor
     run:
       name: Executing the run commands
       command: |
