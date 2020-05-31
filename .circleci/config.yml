@@ -8,7 +8,7 @@ executors:
 jobs:
   build-app:
     description: Building image with custom docker
-    executor: docker_node_executor
+    executor: machine_executor
     steps:
       - checkout
       - setup_remote_docker:
