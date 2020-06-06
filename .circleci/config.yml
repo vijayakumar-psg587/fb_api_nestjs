@@ -1,9 +1,11 @@
-version: 2
+version: 2.1
+
 jobs:
   build_app:
     description: Building image with custom docker
-    machine:
-      image: ubuntu-1604:201903-01 
+    docker:
+      # using custom image, see .circleci/images/primary/Dockerfile
+      - image: circleci/node:13.14.0-stretch-browsers-legacy
     
     steps:
       - checkout
