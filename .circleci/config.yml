@@ -20,7 +20,6 @@ jobs:
           command: |
             apk add --no-cache ca-certificates
             mkdir /usr/share/ca-certificates/extra
-            cp -R /tmp/cert/* /usr/share/ca-certificates/extra/ 
             update-ca-certificates
             
       - run:
