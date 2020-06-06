@@ -1,15 +1,12 @@
-version: 2
-executors:
-  machine_executor:
-    machine: true
+version: 2.0
 jobs:
   build_app:
     description: Building image with custom docker
     docker:
-      - image: docker:stable-git
+      - image: circleci/docker:1.2.1
     steps:
       - checkout
-#      - setup_remote_docker:
+      - setup_remote_docker:
 #          docker_layer_caching: true
 #      - run:
 #          name: Test the source
@@ -20,13 +17,14 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             echo ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:${TAG}
-            docker build -t ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:v1 -f ./deployments/docker/Dockerfile .
+            docker build -t ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:v1 -f ./../deployments/docker/Dockerfile .
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
             docker push $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG
+      
   run_app:
     description: Run the built image
     docker:
-      - image: circleci/node:13.12
+      - image: circleci/docker:1.2.1
     steps:
       - run:
           name: Executing the run commands
