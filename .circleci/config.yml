@@ -17,7 +17,7 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             echo ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:${TAG}
-            docker build -t ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:v1 -f ./../deployments/docker/Dockerfile .
+            docker build -t ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:v1 -f ./Dockerfile .
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
             docker push $DOCKER_HUB_CONTEXT/$PROJECT_ID:$TAG
       
