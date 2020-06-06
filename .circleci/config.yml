@@ -50,7 +50,7 @@ jobs:
             echo ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:${TAG}
             docker version
             docker-compose version
-            docker-compose -f ./../deployments/docker/docker-compose.yml build --force-rm --no-cache
+            docker-compose build --force-rm --no-cache
 
   # run_app:
   #   description: Run the built image
