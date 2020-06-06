@@ -3,7 +3,7 @@ jobs:
   build_app:
     description: Building image with custom docker
     docker:
-      - image: circleci/docker:1.2.1
+      - image: docker:19.03
     steps:
       - checkout
       - setup_remote_docker:
@@ -24,7 +24,7 @@ jobs:
   run_app:
     description: Run the built image
     docker:
-      - image: circleci/docker:1.2.1
+      - image: docker:19.03
     steps:
       - run:
           name: Executing the run commands
