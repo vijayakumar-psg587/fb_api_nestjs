@@ -6,7 +6,7 @@ services:
       context:  ../../
       dockerfile: ./deployments/docker/Dockerfile
     restart: on-failure
-    container_name: api-container
+    container_name: ${PROJECT_ID}-container
     env_file:
       - ../../config/development/.env
     ports:
