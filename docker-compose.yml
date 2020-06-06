@@ -6,7 +6,7 @@ services:
     restart: on-failure
     container_name: ${PROJECT_ID}-container
     env_file:
-      - ../../config/development/.env
+      - ./config/development/.env
     ports:
       - "3002:3002"
 
