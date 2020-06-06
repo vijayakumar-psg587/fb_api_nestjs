@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   fb-api-service:
-    image: fb-api-img:v1
+    image: ${PROJECT_ID}:${TAG}
     build: .
     restart: on-failure
     container_name: ${PROJECT_ID}-container

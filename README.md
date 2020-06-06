@@ -64,3 +64,22 @@ $ npm run test:cov
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
+## Run the app
+Now all you also continuously build and run the app after every change
+using circleci. Dockerbuild is automated in circleci
+(Although you need the following environment vars setup in circle ci before u run)
+To run the image , remove the comments for the "run" step  - Run the app in config.yml
+Or if you wish to checkin then continue with just running circleci
+#
+MONGODB_DOCKER_HOST
+MONGODB_DOCKER_SCHEMA
+MONGODB_DOCKER_PORT
+MONGODB_DOCKER_USERNAME
+MONGODB_DOCKER_PASSWORD
+MONGODB_DOCKER_DATABASE
+MONGODB_DOCKER_NEW_QPARAMS
+POOL_SIZE
+KEEP_ALIVE_DELAY
+SOCKER_TIMEOUT_MS
+DELAY_ITR
+RETRIES
