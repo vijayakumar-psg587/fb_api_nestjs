@@ -19,11 +19,11 @@ jobs:
           name: Install Docker client
           command: |
             set -x
-            VER="19.03.0-ce"
             sudo -i
-            curl -fsSL https://get.docker.com/ | sh
-            usermod -aG docker $USER
+            curl -L https://github.com/docker/docker-ce.git > /usr/local/bin/docker
+            chmod +x /usr/local/bin/docker
             docker version
+            
       - run:
           name: Install Docker Compose
           command: |
