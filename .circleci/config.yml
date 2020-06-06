@@ -7,17 +7,28 @@ jobs:
     
     steps:
       - checkout
+      - setup_remote_docker
 #          docker_layer_caching: true
 #      - run:
 #          name: Test the source
 #          command: |
 #            echo "test"
       - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="19.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+      - run:
           name: Install Docker Compose
           command: |
             set -x
+            sudo -i
             curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
             chmod +x /usr/local/bin/docker-compose
+      
       - run:
           name: Build docker image
           command: |
@@ -28,26 +39,26 @@ jobs:
             docker-compose version
             docker-compose -f ./../deployments/docker/docker-compose.yml build --force-rm --no-cache
 
-  run_app:
-    description: Run the built image
-    machine:
-      image: ubuntu-1604:201903-01 
+  # run_app:
+  #   description: Run the built image
+  #   machine:
+  #     image: ubuntu-1604:201903-01 
      
-    steps:
-      - run:
-          name: Executing the run commands
-          command: |
-            echo $PROJECT_ID
-            docker images
-            docker run -d --name ${PROJECT_ID}-container -p 3002:3002 ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:$TAG
+  #   steps:
+  #     - run:
+  #         name: Executing the run commands
+  #         command: |
+  #           echo $PROJECT_ID
+  #           docker images
+  #           docker run -d --name ${PROJECT_ID}-container -p 3002:3002 ${DOCKER_HUB_CONTEXT}/${PROJECT_ID}:$TAG
 workflows:
   version: 2
   fb-api-docker-workflow:
     jobs:
       - build_app
-      - run_app:
-          requires:
-            - build_app
+      # - run_app:
+      #     requires:
+      #       - build_app
 
 
 
