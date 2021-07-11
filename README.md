@@ -1,7 +1,14 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Developed using [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+For increasing the performance fastifyjs is used everywhere
+
+Almost all needed techinuqes like interceptors, pipes for validations are used
+
+Docker - /docker compose is being used for contanierization
+
+Circleci is being used as the CD pipeline. CI is integrated as part of CD itself but in a real world scenario, its best to have them seperated 
 
 ## Installation
 
